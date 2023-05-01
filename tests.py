@@ -128,8 +128,8 @@ class CupcakeViewsTestCase(TestCase):
     def test_delete_cupcake(self):
         
         cupcake = Cupcake(**CUPCAKE_DATA)
-        # db.session.add(cupcake)
-        # db.session.commit()
+        db.session.add(cupcake)
+        db.session.commit()
 
         self.cupcake_id = cupcake.id
 
