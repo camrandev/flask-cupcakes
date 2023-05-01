@@ -52,14 +52,18 @@ def add_cupcake():
     flavor = request.json['flavor']
     size = request.json['size']
     rating = request.json['rating']
-    image_url = request.json.get('image_url', None)
+    #could do if statement here,
+    image_url = request.json.get('image_url') or None
 
     new_cupcake = Cupcake(flavor=flavor, size=size,
                           rating=rating, image_url=image_url)
 
     db.session.add(new_cupcake)
+    #try to commit, accept data error if DB error
     db.session.commit()
 
     serialized = new_cupcake.serialize()
 
     return (jsonify(cupcake=serialized), 201)
+
+# @app.patch
