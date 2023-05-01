@@ -17,6 +17,11 @@ connect_db(app)
 toolbar = DebugToolbarExtension(app)
 
 
+@app.get('/')
+def show_homepage():
+
+    return 'hi'
+
 @app.get('/api/cupcakes')
 def list_all_cupcakes():
     """return a list of all cupcakes as JSON objects
@@ -76,11 +81,15 @@ def update_cupacake(cupcake_id):
 
     cupcake = Cupcake.query.get_or_404(cupcake_id)
 
+# Add "or" into get statements
     cupcake.flavor = request.json.get('flavor') or cupcake.flavor
     cupcake.size = request.json.get('size') or cupcake.size
     cupcake.rating = request.json.get('rating') or cupcake.rating
     #could do if statement here,
     cupcake.image_url = request.json.get('image_url') or cupcake.image_url
+
+    #does key exist in JSON
+    #update the image URL to either what we get back or default image
 
     db.session.commit()
 
@@ -101,7 +110,7 @@ def delete_cupcake(cupcake_id):
     db.session.delete(cupcake)
     db.session.commit()
 
-    return (jsonify(cupcake = cupcake_id), 200)
+    return (jsonify(deleted = cupcake_id), 200)
 
 
 
