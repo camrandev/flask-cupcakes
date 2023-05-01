@@ -27,6 +27,14 @@ CUPCAKE_DATA_2 = {
     "image_url": "http://test.com/cupcake2.jpg"
 }
 
+CUPCAKE_DATA_3 = {
+    "flavor": "TestFlavor3",
+    "size": "TestSize3",
+    "rating": 1,
+    "image_url": "http://test.com/cupcake2.jpg"
+}
+
+
 
 class CupcakeViewsTestCase(TestCase):
     """Tests for views of API."""
@@ -105,3 +113,53 @@ class CupcakeViewsTestCase(TestCase):
             })
 
             self.assertEqual(Cupcake.query.count(), 2)
+
+    # def test_patch_cupcake(self):
+    #     with app.test_client() as client:
+
+    #         cupcake_id = resp.json['cupcake']['id']
+
+    #         url = f"/api/cupcakes/{cupcake_id}"
+    #         resp = client.patch(url, json=CUPCAKE_DATA_3)
+
+    #         self.assertEqual(resp.status_code, 200)
+    #         self.assertIsInstance(cupcake_id, int)
+
+    def test_delete_cupcake(self):
+        
+        cupcake = Cupcake(**CUPCAKE_DATA)
+        # db.session.add(cupcake)
+        # db.session.commit()
+
+        self.cupcake_id = cupcake.id
+
+        with app.test_client() as client:
+            resp = client.delete(
+                f"/api/cupcakes/{self.cupcake_id}")
+
+        self.assertEqual(
+            resp.json,
+            {"deleted": [self.cupcake_id]}
+        )
+
+# def test_delete_cupcake(self):
+#     # Create a cupcake to delete
+#     cupcake = Cupcake(**CUPCAKE_DATA)
+#     db.session.add(cupcake)
+#     db.session.commit()
+
+#     # Save the cupcake ID for later use
+#     self.cupcake_id = cupcake.id
+
+#     with app.test_client() as client:
+#         # Send a DELETE request to delete the cupcake
+#         response = client.delete(f'/api/cupcakes/{self.cupcake_id}')
+
+#         # Check that the response JSON data matches the expected data
+#         expected_data = {"deleted": [self.cupcake_id]}
+#         assert response.status_code == 200
+#         assert response.json == expected_data
+    
+
+
+
