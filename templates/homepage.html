@@ -11,9 +11,9 @@
 <body>
 
   <h1>Cupcake!</h1>
-  
+
   <form>
-  
+
     <div>
       <label for="flavor">Enter the flavor: </label>
       <input type="text" name="flavor" id="flavor" required>
@@ -31,17 +31,18 @@
       <input type="url" name="image_url" id="image_url">
     </div>
     <button type="submit">Add Cupcake!</button>
-  
+
   </form>
-  <div>
-  {% for cupcake in cupcakes %}
-  
+
+  <div class="cupcake-container">
+  <!-- {% for cupcake in cupcakes %}
+
   <div>
     <img src="{{cupcake.image_url}}" alt="picture of cupcake">
     <p>This {{cupcake.flavor}} cupcake is a {{cupcake.size}} and has a rating of {{cupcake.rating}} out of 10</p>
   </div>
-  
-  {% endfor %}
+
+  {% endfor %} -->
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
