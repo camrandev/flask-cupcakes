@@ -3,7 +3,7 @@ import os
 
 from flask import Flask, render_template, redirect, flash, jsonify, request
 from flask_debugtoolbar import DebugToolbarExtension
-from models import connect_db, db, Cupcake
+from models import connect_db, db, Cupcake, DEFAULT_IMAGE
 
 app = Flask(__name__)
 
@@ -17,10 +17,15 @@ connect_db(app)
 toolbar = DebugToolbarExtension(app)
 
 
-@app.get('/')
+@app.route('/')
 def show_homepage():
+    
+    cupcakes = Cupcake.query.all()
 
-    return 'hi'
+    return render_template('homepage.html',cupcakes=cupcakes )
+
+
+
 
 @app.get('/api/cupcakes')
 def list_all_cupcakes():
@@ -79,6 +84,8 @@ def update_cupacake(cupcake_id):
     {cupcake: {id, flavor, size, rating, image_url}}
     """
 
+    data = request.json
+
     cupcake = Cupcake.query.get_or_404(cupcake_id)
 
 # Add "or" into get statements
@@ -86,7 +93,18 @@ def update_cupacake(cupcake_id):
     cupcake.size = request.json.get('size') or cupcake.size
     cupcake.rating = request.json.get('rating') or cupcake.rating
     #could do if statement here,
-    cupcake.image_url = request.json.get('image_url') or cupcake.image_url
+    # cupcake.image_url = request.json.get('image_url') or cupcake.image_url
+
+    if "image_url" in data:
+        cupcake.image_url = data['image_url'] or DEFAULT_IMAGE_URL
+
+    #OUR CODE
+    # if (request.json.get('image_url')):
+    #     if (request.json.get('image_url') == ''):
+    #         cupcake.image_url = DEFAULT_IMAGE
+    #     else: 
+    #         cupcake.image_url = request.json.get('image_url') 
+    
 
     #does key exist in JSON
     #update the image URL to either what we get back or default image

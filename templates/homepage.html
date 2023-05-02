@@ -4,44 +4,48 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Document</title>
 </head>
-<h1>Cupcake!</h1>
-<form method="POST" action="/api/cupcakes">
-  <div>
-    <label for="flavor">Enter the flavor: </label>
-    <input type="text" name="flavor" id="flavor" required>
-  </div>
-  <div>
-    <label for="size">Enter your size: </label>
-    <input type="text" name="size" id="size" required>
-  </div>
-  <div>
-    <label for="rating">Enter your rating: </label>
-    <input type="text" name="rating" id="rating" required>
-  </div>
-  <div>
-    <label for="image_url">Enter your image_url: </label>
-    <input type="url" name="image_url" id="image_url">
-  </div>
-  <div>
-    <input type="submit" value="add your Cupcake">
-  </div>
-</form>
-<div>
-{% for cupcake in cupakes %}
-
-<div>
-  <img src="{{cupcake.image_url}}" alt="picture of cupcake">
-  <p>{{cupcake.flavor}}</p>
-
-
-</div>
-
-{% endfor %}
-</div>
 
 <body>
 
+  <h1>Cupcake!</h1>
+  
+  <form>
+  
+    <div>
+      <label for="flavor">Enter the flavor: </label>
+      <input type="text" name="flavor" id="flavor" required>
+    </div>
+    <div>
+      <label for="size">Enter your size: </label>
+      <input type="text" name="size" id="size" required>
+    </div>
+    <div>
+      <label for="rating">Enter your rating: </label>
+      <input type="text" name="rating" id="rating" required>
+    </div>
+    <div>
+      <label for="image_url">Enter your image URL: </label>
+      <input type="url" name="image_url" id="image_url">
+    </div>
+    <button type="submit">Add Cupcake!</button>
+  
+  </form>
+  <div>
+  {% for cupcake in cupcakes %}
+  
+  <div>
+    <img src="{{cupcake.image_url}}" alt="picture of cupcake">
+    <p>This {{cupcake.flavor}} cupcake is a {{cupcake.size}} and has a rating of {{cupcake.rating}} out of 10</p>
+  </div>
+  
+  {% endfor %}
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.js"></script>
+  <script src="/static/script.js"></script>
 </body>
 </html>

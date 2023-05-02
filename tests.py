@@ -145,6 +145,7 @@ class CupcakeViewsTestCase(TestCase):
         """
         test deleting a cupcake
         """
+        
         with app.test_client() as client:
             resp = client.delete(
                 f"/api/cupcakes/{self.cupcake_id}")
